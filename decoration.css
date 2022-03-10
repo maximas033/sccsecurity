@@ -1,0 +1,186 @@
+*{
+    text-align: center;
+}
+
+.login{
+  width: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.headerLogin h1{
+    font-weight: bold;
+}
+
+.headerLogin h4{
+    font-weight: lighter;
+    margin-bottom: 5%;
+}
+
+form{
+    width: 100%;
+}
+
+#firebasealert{
+    display: none;
+}
+
+form input{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 5%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    text-align: left;
+}
+
+form button{
+    width: 50%;
+}
+
+
+.navbar-expand-lg .navbar-nav {
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+#alertDanger{
+    display: none;
+}
+
+#alertSuccess{
+    display: none;
+}
+
+
+#clockingForm{
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 5%;
+}
+
+.btns button{
+    width: 40%;
+}
+
+#clockingForm .btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+@media screen and (max-width: 767px){
+    .login{
+        width: 90%;
+    }
+
+    #WArning{
+        margin-top: 10%;
+    }
+    #alertDanger{
+        margin-top: 5%;
+    }
+
+    #clockingForm{
+        width: 90%;
+    }
+
+    .form{
+        width: 100%;
+    }
+
+    form input{
+        width: 100%;
+    }
+}
+
+
+
+.displayDate{
+    font-size: 30px;
+    font-weight: lighter;
+    margin-top: 10%;
+}
+
+#todayNameDate1{
+    font-size: 30px;
+    font-weight: lighter;
+    margin-top: 3%;
+}
+
+.clockedinalready{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+    margin:5%;
+
+}
+
+
+li{
+    text-decoration: none;
+    list-style: none;
+    display:inline-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+p{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

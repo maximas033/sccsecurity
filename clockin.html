@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="decoration.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>SCC SECURITY CLOCK IN/OUT</title>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+  </head>
+  <body>
+      <!-- PAGE NAVIGATION -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="clockin.html" style="font-weight: bold;">SCC SECURITY</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link activePage" style="color: red;" onclick="logOut()">Log Out</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+
+
+
+    <section class="clockIn">
+        <!-- DISPLAYING DATE AND TIME -->
+        <div class="alert alert-warning" role="alert" id="WArning" style="margin-top:3%;">
+            <b>DO NOT CLOCK IN PEOPLE WHO ARE NOT WORKING / VEOLUNTEERING</b>
+        </div>
+        <div class="displayDate" id="diaplaying_Date" style="margin-top: 5%;">
+
+        </div>
+
+        <!-- ERROR ALERTS -->
+        <div class="errorMessage">
+            <div class="alert alert-success" role="alert" id="alertSuccess">
+                
+            </div>
+            <div class="alert alert-danger" role="alert" id="alertDanger">
+                
+            </div>
+        </div>
+    
+       <form action="userCheck.html" id="clockingForm">
+           <input type="text" id="name" placeholder="First Name">
+           <div class="btns">
+           <button type="submit" class="btn btn-success" onclick="clockIn(event)">Clock in</button>
+           <button type="submit" class="btn btn-secondary" onclick="clockOut(event)">Clock out</button>
+           </div>
+        <!-- <a href="passwordReset.html">
+            <button type="button" class="btn btn-dark">Forgot Password</button>
+        </a> -->
+       </form>
+    </section>
+
+
+
+
+    <!-- FOOTER -->
+<footer>
+    <p>SCC SECURITY</p>
+    <p>Copyright © 2022-<script>document.write(new Date().getFullYear())</script></p>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <!-- JAVASCRIPT -->
+    <script src="javascript.js"></script>
+
+    <script>
+// DISPLAYING DATE AND THE TIME FOR THE ADMIN PAGE
+setInterval (function(){
+    // DISPLAYING THE TIME AND THE DATE ON THE ADMINS PAGE
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
+    var prepand;
+    if(h>=12) {
+      prepand = "PM";
+      h = h - 12;
+    }
+    else {
+      prepand = "AM";
+    }
+    
+    if(m<10) {
+      m = "0" + m;
+    }
+    
+    if(s<10) {
+     s = "0" + s; 
+    }
+    
+    var weekend = new Array(7);
+    weekend[0] = "Sunday";
+    weekend[1] = "Monday";
+    weekend[2] = "Tuesday";
+    weekend[3] = "Wednday";
+    weekend[4] = "Thursday";
+    weekend[5] = "Friday";
+    weekend[6] = "Saturday";
+    var n = weekend[d.getDay()];
+    document.getElementById("diaplaying_Date").innerHTML = (n + " " + h + " " + " : " + m + " " + ": " + s + " " + prepand);
+    // document.getElementById("demo2").innerHTML = "Current time is : " + h + " " + prepand + " : " + m + " : " + s;
+    }, 300);
+    </script>
+  </body>
+</html>
