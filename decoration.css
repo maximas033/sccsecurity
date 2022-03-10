@@ -146,9 +146,13 @@ p{
 }
 
 
+#clockinList p{
+    color: green;
+}
 
-
-
+#out p{
+    color: red;
+}
 
 
 
