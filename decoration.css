@@ -60,6 +60,7 @@ form button{
 #alertSuccess{
     display: none;
     font-weight: bold;
+    background-color: rgb(122, 213, 122);
 }
 
 #WArning{
