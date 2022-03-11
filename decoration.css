@@ -53,12 +53,19 @@ form button{
 
 #alertDanger{
     display: none;
+    background-color: rgb(225, 111, 111);
+    font-weight: bold;
 }
 
 #alertSuccess{
     display: none;
+    font-weight: bold;
 }
 
+#WArning{
+    background-color: rgb(247, 243, 185);
+    font-weight: bold;
+}
 
 #clockingForm{
     width: 50%;
