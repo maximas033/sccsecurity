@@ -93,9 +93,8 @@ form button{
     .login{
         width: 90%;
     }
-
     #WArning{
-        margin-top: 10%;
+        margin-top: 5%;
     }
     #alertDanger{
         margin-top: 5%;
@@ -105,13 +104,21 @@ form button{
         width: 90%;
     }
 
-    .form{
-        width: 100%;
+    #clockingForm{
+        width: 90%;
+        margin-top: 10%;
     }
 
     form input{
         width: 100%;
     }
+
+    #navbarSupportedContent li{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
 }
 
 
@@ -165,7 +172,10 @@ p{
 
 
 
-
+#totalstuff{
+    width: 70%;
+    margin: 10% auto;
+}
 
 
 

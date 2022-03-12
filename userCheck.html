@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
   </head>
-  <body onload="clockinData(); clockoutData()">
+  <body onload="clockinData(); clockoutData();">
       <!-- PAGE NAVIGATION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
         <div class="container-fluid">
@@ -22,6 +22,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="allData.html">All Data</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" style="color: red;" onclick="logOut()">Log Out</a>
             </li>
@@ -54,6 +57,16 @@
         </ul>
       </div>
     </section>
+
+
+    <section>
+      <div id="displayTotalStuff">
+
+      </div>
+    </section>
+
+
+
 
 
 
@@ -159,6 +172,8 @@
                 )
             })
         }
+
+
         </script>
 
 
