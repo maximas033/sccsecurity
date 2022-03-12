@@ -59,7 +59,6 @@ form button{
 
 #alertSuccess{
     display: none;
-    font-weight: bold;
     background-color: rgb(122, 213, 122);
 }
 
@@ -97,7 +96,8 @@ form button{
         margin-top: 5%;
     }
     #alertDanger{
-        margin: 3%, 0, 5%, 0
+        margin: 3%, 0, 5%, 0;
+        font-weight: normal;
     }
 
     #clockingForm{
