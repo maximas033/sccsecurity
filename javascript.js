@@ -105,6 +105,7 @@ function clockIn(event){
             timeM: m,
         })
 
+
         // DISPLAYING SUCCESS ALERS
         document.getElementById('name').value = ""
         document.getElementById('name').style.borderColor ="black"
@@ -124,7 +125,6 @@ function clockIn(event){
         }, 3000);
     }
 }
-
 
 
 
@@ -183,7 +183,7 @@ function clockOut(event){
           //DISPLAY ERROR ALERT
           document.getElementById("name").style.borderColor = "red"
           document.getElementById('alertDanger').style.display = "block"
-          alertDanger.innerHTML = ("This person is either not in the system, or the fiels is emptry")
+          alertDanger.innerHTML = ("This person is either not in the system, or the fields is emptry")
           setTimeout(function(){
               alertDanger.style.display = "none";
           }, 3000);
