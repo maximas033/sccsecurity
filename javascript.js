@@ -97,9 +97,19 @@ function clockIn(event){
      s = "0" + s; 
     }
     
+    var weekend = new Array(7);
+    weekend[0] = "Sunday";
+    weekend[1] = "Monday";
+    weekend[2] = "Tuesday";
+    weekend[3] = "Wednday";
+    weekend[4] = "Thursday";
+    weekend[5] = "Friday";
+    weekend[6] = "Saturday";
+    var n = weekend[d.getDay()];
 
     if(securityPeople.includes(persons_name)){
         firebase.database().ref("clockedIn").push({
+            timeDate: n,
             Name: persons_name,
             timeH: h,
             timeM: m,
@@ -161,13 +171,22 @@ function clockOut(event){
     if(s<10) {
      s = "0" + s; 
     }
+    var weekend = new Array(7);
+    weekend[0] = "Sunday";
+    weekend[1] = "Monday";
+    weekend[2] = "Tuesday";
+    weekend[3] = "Wednday";
+    weekend[4] = "Thursday";
+    weekend[5] = "Friday";
+    weekend[6] = "Saturday";
+    var n = weekend[d.getDay()];
     
-
     if(securityPeople.includes(persons_name)){
         firebase.database().ref("clockedOut").push({
             Nameclock: persons_name,
             timeHour: h,
             timeMinute: m,
+            timeDate: n,
         })
 
          // DISPLAYING SUCCESS ALERS
@@ -188,16 +207,6 @@ function clockOut(event){
               alertDanger.style.display = "none";
           }, 3000);
      }
-    // else{
-    //      // DISPLAYING SUCCESS ALERS
-    //      document.getElementById('name').value = ""
-    //      document.getElementById('name').style.borderColor ="black"
-    //      document.getElementById('alertDanger').style.display = "block"
-    //      alertSuccess.innerHTML = ("This person is not part of the team")
-    //      setTimeout(function(){
-    //          alertSuccess.style.display = "none";
-    //      }, 3000);
-    // }
 }
 
 
