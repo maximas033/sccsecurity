@@ -147,7 +147,7 @@ function clockIn(event){
 // WHEN THE CHECK OUT BUTTON IS CLICKED
 function clockOut(event){
     event.preventDefault()
-    var securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman"];
+    var securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman","Edward"];
     var persons_name = document.getElementById("name").value
 
 
