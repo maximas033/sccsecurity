@@ -47,7 +47,7 @@
             <div class="alert alert-success" role="alert" id="alertSuccess">
                 
             </div>
-            <div class="alert alert-danger" role="alert" id="alertDanger">
+            <div class="alert alert-danger" role="alert" id="alertDanger" style="font-weight: normal;">
                 
             </div>
         </div>
@@ -56,11 +56,11 @@
            <input type="text" id="name" placeholder="First Name">
            <div class="btns">
            <button type="submit" class="btn btn-success" onclick="clockIn(event)">Clock in</button>
-           <button type="submit" class="btn btn-secondary" onclick="clockOut(event);">Clock out</button>
+           <button type="submit" class="btn btn-danger" onclick="clockOut(event);">Clock out</button>
            </div>
-        <!-- <a href="passwordReset.html">
-            <button type="button" class="btn btn-dark">Forgot Password</button>
-        </a> -->
+        <a>
+            <button type="button" class="btn btn-dark" style="margin-top: 5%;" onclick="addPerson()" disabled>Add Person</button>
+        </a>
        </form>
     </section>
 
