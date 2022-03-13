@@ -72,7 +72,7 @@ function logOut(){
 // WHEN THE CHECK IN BUTTON IS CLICKED
 function clockIn(event){
     event.preventDefault()
-    const securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman"];
+    const securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward"];
     var persons_name = document.getElementById("name").value
 
 
