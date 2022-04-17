@@ -1,16 +1,16 @@
+// Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyCT7cOWYEvds7eWS4g68v1SvPafvX_bXNk",
-    authDomain: "sccsecurity-575a0.firebaseapp.com",
-    projectId: "sccsecurity-575a0",
-    storageBucket: "sccsecurity-575a0.appspot.com",
-    messagingSenderId: "41777650764",
-    appId: "1:41777650764:web:3c24977a6ce574e0fea8e9",
-    measurementId: "G-8H6F8K3B8K"
+    apiKey: "AIzaSyCZx2woCZx4MUhOUZdSY81xV37_XI_rxew",
+    authDomain: "clockingsystem-8baa6.firebaseapp.com",
+    projectId: "clockingsystem-8baa6",
+    storageBucket: "clockingsystem-8baa6.appspot.com",
+    messagingSenderId: "515651665477",
+    appId: "1:515651665477:web:bcdd8e19f92eca70a22d2c"
   };
-    // Initialize Firebase
-    var firebaseConfiguration = firebase.initializeApp(firebaseConfig);
-    // const app = initializeApp(firebaseConfig);
-
+  
+// Initialize Firebase
+var firebaseConfiguration = firebase.initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(function(user){
     if(user){
