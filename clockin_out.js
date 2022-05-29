@@ -50,7 +50,7 @@ function clockIn(event){
         document.getElementById('name').value = ""
         document.getElementById('name').style.borderColor ="black"
         document.getElementById('alertSuccess').style.display = "block"
-        alertSuccess.innerHTML = (persons_name + " has been successfully clocked in at " + h + " : " + m)
+        alertSuccess.innerHTML = (persons_name + " has been successfully clocked out at " + h + " : " + m)
         setTimeout(function(){
             alertSuccess.style.display = "none";
         }, 3000);
