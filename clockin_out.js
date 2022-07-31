@@ -2,7 +2,7 @@
 // WHEN THE CHECK IN BUTTON IS CLICKED
 function clockIn(event){
     event.preventDefault()
-    const securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward"];
+    const securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
     var persons_name = document.getElementById("name").value
 
 
@@ -77,7 +77,7 @@ function clockIn(event){
 // WHEN THE CHECK OUT BUTTON IS CLICKED
 function clockOut(event){
     event.preventDefault()
-    var securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman","Edward"];
+    var securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman","Edward", "Dima", "Viktor"];
     var persons_name = document.getElementById("name").value
 
     var d = new Date();
