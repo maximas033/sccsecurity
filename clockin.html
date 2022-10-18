@@ -11,6 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
   </head>
   <body>
       <!-- PAGE NAVIGATION -->
@@ -26,7 +27,7 @@
                 <a class="nav-link activePage" style="color: red;" onclick="logOut()">Log Out</a>
             </li>
             <li>
-                <a class="nav-link activePage" href="clockingAll.html">All Data</a>
+                <a class="nav-link activePage" href="allData.html">All Data</a>
             </li>
             </ul>
         </div>
@@ -58,8 +59,8 @@
        <form action="userCheck.html" id="clockingForm">
            <input type="text" id="name" placeholder="First Name">
            <div class="btns">
-           <button type="submit" class="btn btn-success" onclick="clockIn(event)">Clock in</button>
-           <button type="submit" class="btn btn-danger" onclick="clockOut(event);">Clock out</button>
+           <button type="submit" class="btn btn-success" onclick="clockInUser(event)">Clock in</button>
+           <button type="submit" class="btn btn-danger" onclick="clockOutUser(event), calculateTime(event)">Clock out</button>
            </div>
        </form>
     </section>
@@ -84,6 +85,6 @@
     <!-- JAVASCRIPT FILES -->
     <script src="javascript.js"></script>
     <script src="clock.js"></script>
-    <script src="clockin_out.js"></script>
+    <script src="clockIn.js"></script>
   </body>
 </html>

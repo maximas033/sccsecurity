@@ -21,9 +21,6 @@ firebase.auth().onAuthStateChanged(function(user){
     }
 });
 
-
-
-
 //WHEN LOGIN BUTTON IS PRESSED...
 function scclogin(event){
     event.preventDefault()
@@ -43,7 +40,7 @@ function scclogin(event){
             window.location = "clockin.html"
         }
         else if (user != null && email === "max.personal9@gmail.com"){
-            window.location = "userCheck.html"
+            window.location = "clockin.html"
         }
     })
  }

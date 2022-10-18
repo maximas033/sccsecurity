@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
   </head>
-  <body onload="clockinData(); clockoutData();">
+  <body onload="getTotalTime()">
       <!-- PAGE NAVIGATION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
         <div class="container-fluid">
@@ -31,138 +31,16 @@
     </nav>
 
 
-    <!-- OLD VERTION OF KEEPING THE TIME TRACKING-->
-    <section >
-        <table id="clockedin" style="width: 100%; display: none">
-            <tr>
-              <th>Date</th>
-              <th>Total Hours</th>
-              <th>Total Minuts</th>
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>03.12.2022</td>
-                <td>6 hours</td> <!-- TOTAL HOURS-->
-                <td>14 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: lighter;">
-                <td>03.13.2022</td>
-                <td>11 hours</td> <!-- TOTAL HOURS-->
-                <td>47 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>03.13.2022 EVENING</td>
-                <td>6 hours</td> <!-- TOTAL HOURS-->
-                <td>16 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: lighter;">
-                <td>03.19.2022 - 03.20.22</td>
-                <td> 16 hours</td> <!-- TOTAL HOURS-->
-                <td> 23 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: lighter;">
-                <td>03.19.2022 - 03.20.22</td>
-                <td> 16 hours</td> <!-- TOTAL HOURS-->
-                <td> 23 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: lighter;">
-                <td>03.26.2022 - 03.27.22</td>
-                <td> 20 hours</td> <!-- TOTAL HOURS-->
-                <td> 20 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: bolder;">
-                <td></td>
-                <td>90 Hours Total</td>
-            </tr>
+    <section>
+        <div>
+            <h1 id="totalHours">Total Hours</h1>
+            <div id="workedHoursW">
+               
+            </div>
+        </div>
     </section>
 
 
-
-
-
-
-<!-- NEW VERTION OF KEEPING CLOKED IN-->
-    <section class="newClockin">
-        <h1 style="text-align: center; margin-top:20%;">All Clockedin Data</h1>
-        <table id="clockedin" style="width: 100%;">
-            <tr>
-              <th>Name</th>
-              <th>Total Hours</th>
-              <th>Total Minuts</th>
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>David</td>
-                <td>283 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            <tr style="font-weight: lighter;">
-                <td>Gena</td>
-                <td>71 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Vadim</td>
-                <td>121 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Maxim</td>
-                <td>81 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Dan</td>
-                <td>38 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Pasha</td>
-                <td>36 hours</td> <!-- TOTAL HOURS-->
-                <td>50 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Slavic</td>
-                <td>44 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Roman</td>
-                <td>49 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-
-            <tr style="font-weight: lighter;">
-                <td>Edward</td>
-                <td>38 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-            
-            <tr style="font-weight: lighter;">
-                <td>Vitaliy</td>
-                <td>43 hours</td> <!-- TOTAL HOURS-->
-                <td>00 minutes</td> <!-- TOTAL Minutes-->
-            </tr>
-          
-            <tr style="font-weight: lighter;">
-                <td>Viktor</td>
-                <td>16 hours</td> <!-- TOTAL HOURS-->
-                <td>30 minutes</td> <!-- TOTAL Minutes-->
-           </tr>
-          
-           <tr style="font-weight: lighter;">
-                <td>Dima</td>
-                <td>22 hours</td> <!-- TOTAL HOURS-->
-                <td>30 minutes</td> <!-- TOTAL Minutes-->
-           </tr>
-    </section>
 
 
 
@@ -170,13 +48,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <!-- JAVASCRIPT -->
     <script src="javascript.js"></script>
-
-    <!-- FOOTER
-<footer>
-    <p>SCC SECURITY</p>
-    <p>Copyright © 2022-<script>document.write(new Date().getFullYear())</script></p>
-</footer>
--->
+    <script src="getTheUsersTotalData.js"></script>
 
 
 </body>
