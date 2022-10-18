@@ -185,6 +185,11 @@ function calculateTime(event){
                     var totalTimeMinute = snapshot.val().totalMinute;
                     var newTotalHour = totalTimeHour + totalHour;
                     var newTotalMinute = totalTimeMinute + totalMinute;
+                    //if minutes is 60 than thats one hour so add one hour and set minutes to 0
+                    if(newTotalMinute == 60){
+                        newTotalHour = newTotalHour + 1;
+                        newTotalMinute = 0;
+                    }
                     firebase.database().ref("users/totalTime" + name).set({
                         name: name,
                         totalHour: newTotalHour,
