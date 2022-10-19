@@ -3,6 +3,19 @@ function clockInUser(event){
     // get the current date and time
     // do not refresh the page
     event.preventDefault();
+    // check if the user is in the array of users
+    var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
+    var name = document.getElementById("name").value;
+    // if the name is not in the array then alert the user that he is not in the array
+    if(!users.includes(name)){
+        document.getElementById("alertDanger").style.display = "block";
+        document.getElementById("alertDanger").innerHTML = "You are not in the list of users";
+        setTimeout(function(){
+            document.getElementById("alertDanger").style.display = "none";
+        }
+        , 2000);
+        return
+    }
     var d = new Date();
     var h = d.getHours();
     var m = d.getMinutes();
@@ -41,10 +54,17 @@ function clockInUser(event){
     if(name == ""){
         alert("Please enter your name");
     }
-    else{
-        // check the array of users and if the user is in the array then clock in the user otherwise alert the user that he is not in the array
-        var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
-        if(users.includes(name)){
+    // check if the user is already clocked in, if he is clocked in then alert the user that he is already clocked in otherwise clock in the user
+    else if(firebase.database().ref("users/clockIn" + name).once("value", function(snapshot){
+        if(snapshot.exists()){
+            document.getElementById("alertDanger").style.display = "block";
+            document.getElementById("alertDanger").innerHTML = "You have already clocked in";
+            setTimeout(function(){
+                document.getElementById("alertDanger").style.display = "none";
+            }
+            , 2000);
+        }
+        else{
             firebase.database().ref("users/clockIn" + name).set({
                 name: name,
                 hour: h,
@@ -58,16 +78,9 @@ function clockInUser(event){
             }
             , 2000);
         }
-        else{
-            document.getElementById("alertDanger").style.display = "block";
-            document.getElementById("alertDanger").innerHTML = "You are not in the list of users";
-            setTimeout(function(){
-                document.getElementById("alertDanger").style.display = "none";
-            }
-            , 2000);
-        }
-    }   
+    }));
 }
+
 
 
 // create a function that will clock out the user
@@ -135,7 +148,7 @@ function clockOutUser(event){
                 }
                 else{
                     document.getElementById("alertDanger").style.display = "block";
-                    document.getElementById("alertDanger").innerHTML = "You have not clocked in";
+                    document.getElementById("alertDanger").innerHTML = "You have not clocked in yet, please clock in first";
                     setTimeout(function(){
                         document.getElementById("alertDanger").style.display = "none";
                     }
@@ -175,8 +188,6 @@ function calculateTime(event){
             // calculate the total time that the user has worked
             var totalHour = clockOutHour - clockInHour;
             var totalMinute = clockOutMinute - clockInMinute;
-            // display the total time that the user has worked
-            console.log(totalHour + " " + "hours" + " " + totalMinute + " " + "minutes");
 
             // add the total time that the user has worked to the current users total time
             firebase.database().ref("users/totalTime" + name).once("value", function(snapshot){
