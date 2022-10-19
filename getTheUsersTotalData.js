@@ -34,6 +34,8 @@ function getTotalTime(){
             tr.appendChild(td);
             td = document.createElement("td");
             td.innerHTML = snapshot.val().totalMinute;
+            // remove the line before the minute
+            td.innerHTML = td.innerHTML.replace("-", "");
             tr.appendChild(td);
             tbody.appendChild(tr);
             table.appendChild(tbody);
