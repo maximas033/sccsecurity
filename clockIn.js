@@ -4,7 +4,7 @@ function clockInUser(event){
     // do not refresh the page
     event.preventDefault();
     // check if the user is in the array of users
-    var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
+    var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul"];
     var name = document.getElementById("name").value;
     // if the name is not in the array then alert the user that he is not in the array
     if(!users.includes(name)){
@@ -128,7 +128,7 @@ function clockOutUser(event){
     }
     else{
         // check the array of users and if the user is in the array then clock in the user otherwise alert the user that he is not in the array
-        var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
+        var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul"];
         if(users.includes(name)){
             //check if the user has clocked in or not if he has clocked in then clock out the user otherwise alert the user that he has not clocked in
             firebase.database().ref("users/clockIn" + name).once("value", function(snapshot){
