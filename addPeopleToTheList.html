@@ -7,7 +7,7 @@
     <link href="decoration.css" rel="stylesheet" type="text/css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>SCC SECURITY CLOCK IN/OUT</title>
+    <title>SCC SECURITY || ADD PEOPLE</title>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
@@ -24,10 +24,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li>
-                <a class="nav-link activePage" href="allData.html">All Data</a>
+                <a class="nav-link activePage" href="clockin.html">Clock In</a>
             </li>
             <li>
-                <a class="nav-link activePage" href="addPeopleToTheList.html">Add Person</a>
+                <a class="nav-link activePage" href="allData.html">All Data</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link activePage" style="color: red;" onclick="logOut()">Log Out</a>
@@ -41,38 +41,19 @@
 
 
     <section class="clockIn">
-        <!-- DISPLAYING DATE AND TIME -->
-        <div class="alert alert-warning" role="alert" id="WArning">
-            <b>DO NOT CLOCK IN PEOPLE WHO ARE NOT WORKING / VOLUNTEERING</b>
-        </div>
+        <!-- This will allow you to add a person to your team of people -->
         <div class="displayDate" id="diaplaying_Date" style="margin-top: 2%; margin-bottom: 5%; font-size:30px; font-weight:lighter">
 
         </div>
 
-        <!-- ERROR ALERTS -->
-        <div class="errorMessage">
-            <div class="alert alert-success" role="alert" id="alertSuccess">
-                
-            </div>
-            <div class="alert alert-danger" role="alert" id="alertDanger" style="font-weight: normal;">
-                
-            </div>
+
+        <div>
+            <form id="AddPerson">
+                <p id="AlertMessages" ></p>
+                <input type="text" placeholder="Clock in name" id="DiffrentPerson">
+                <button onclick="addPersonToTheList(event)">Add Person</button>
+            </form>
         </div>
-    
-       <form action="userCheck.html" id="clockingForm">
-           <input type="text" id="name" placeholder="First Name" required>
-           <div class="btns">
-           <button type="submit" class="btn btn-success" onclick="clockInUser(event)">Clock in</button>
-           <button type="submit" class="btn btn-danger" onclick="clockOut(event), calculateTime(event)">Clock out</button>
-           </div>
-       </form>
-    </section>
-
-
-    <section>
-      <div id="clockedinin">
-        
-      </div>
     </section>
 
 
@@ -87,13 +68,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <!-- JAVASCRIPT FILES -->
     <script src="javascript.js"></script>
-    <!-- link to the js file that will dispaly the current time-->
     <script src="clock.js"></script>
-    <!-- Link to the js file that will clock a person in and safe the data to the firebase-->
     <script src="clockIn.js"></script>
-    <!-- Link to the js file that will clock a person out and safe the data to the firebase-->
-    <script src="clockOut.js"></script>
-    <!-- Link to the js file that will calculate the time a person worked and save it to the firebase -->
-    <script src="calculateTotalHours.js"></script>
+    <script src="addPersonToTheList.js"></script>
   </body>
 </html>

@@ -1,223 +1,97 @@
 // create a function that will clock in the user
+// writte comments to explain what the function does
 function clockInUser(event){
-    // get the current date and time
     // do not refresh the page
     event.preventDefault();
-    // check if the user is in the array of users
-    var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul"];
-    var name = document.getElementById("name").value;
-    // if the name is not in the array then alert the user that he is not in the array
-    if(!users.includes(name)){
-        document.getElementById("alertDanger").style.display = "block";
-        document.getElementById("alertDanger").innerHTML = "You are not in the list of users";
-        setTimeout(function(){
-            document.getElementById("alertDanger").style.display = "none";
-        }
-        , 2000);
-        return
-    }
-    var d = new Date();
-    var h = d.getHours();
-    var m = d.getMinutes();
-    var s = d.getSeconds();
-    var prepand;
-    if(h>=12) {
-      prepand = "PM";
-      h = h - 12;
-    }
-    else {
-      prepand = "AM";
-    }
-    
-    if(m<10) {
-      m = "0" + m;
-    }
-    
-    if(s<10) {
-     s = "0" + s; 
-    }
-    
-    var weekend = new Array(7);
-    weekend[0] = "Sunday";
-    weekend[1] = "Monday";
-    weekend[2] = "Tuesday";
-    weekend[3] = "Wednday";
-    weekend[4] = "Thursday";
-    weekend[5] = "Friday";
-    weekend[6] = "Saturday";
-    var n = weekend[d.getDay()];
-    var time = (h + " " + " : " + m + " " + ": " + s);
-    // get the user's name
-    var name = document.getElementById("name").value;
-
-    // check if the user's name is empty or not 
-    if(name == ""){
-        alert("Please enter your name");
-    }
-    // check if the user is already clocked in, if he is clocked in then alert the user that he is already clocked in otherwise clock in the user
-    else if(firebase.database().ref("users/clockIn" + name).once("value", function(snapshot){
-        if(snapshot.exists()){
+    //get all names from the SCCSECURITYPEOPLE list in the database 
+    var SCCSECURITYPEOPLE = firebase.database().ref().child("SCCSECURITYPEOPLE");
+    // get the name of the person that is clocking in
+    var clockingInUser = document.getElementById("name").value;
+    // get the names from the list
+    SCCSECURITYPEOPLE.once('value', function(snapshot) {
+        // check if the clockingInUser is in the list of names or not
+        if(snapshot.hasChild(clockingInUser)){
+            // check if the the peron is clocked in
+            firebase.database().ref("users/clockIn" + clockingInUser).once("value", function(snapshot){
+                // if the person is clocked in then alert the user
+                if(snapshot.exists()){
+                // clear the input field
+                clockingInUser.innerHTML = "";
+                // if the person is clocked in already, then do not clock them in and display an error message
+                document.getElementById("alertDanger").style.display = "block";
+                document.getElementById("alertDanger").innerHTML = "You are already clocked in!";
+                //do not show the message for 2.5 seconds
+                setTimeout(function(){
+                    document.getElementById("alertDanger").style.display = "none";
+                }
+                , 2500);
+            }else{
+                var d = new Date();
+                var h = d.getHours();
+                var m = d.getMinutes();
+                var s = d.getSeconds();
+                var prepand;
+                if(h>=12) {
+                prepand = "PM";
+                h = h - 12;
+                }
+                else {
+                prepand = "AM";
+                }
+                
+                if(m<10) {
+                m = "0" + m;
+                }
+                
+                if(s<10) {
+                s = "0" + s; 
+                }
+                
+                var weekend = new Array(7);
+                weekend[0] = "Sunday";
+                weekend[1] = "Monday";
+                weekend[2] = "Tuesday";
+                weekend[3] = "Wednday";
+                weekend[4] = "Thursday";
+                weekend[5] = "Friday";
+                weekend[6] = "Saturday";
+                var n = weekend[d.getDay()];
+                var time = (h + " " + " : " + m + " " + ": " + s);
+                // if the person is not clocked in, then clock them in
+                var clockInTime = new Date();
+                // get the time that the person clocked in
+                var clockInTime = clockInTime.toLocaleTimeString();
+                // get the current hour 
+                var currentHour = new Date().getHours();
+                // get the current minute
+                var currentMinute = new Date().getMinutes();
+                firebase.database().ref("users/clockIn" + clockingInUser).set({
+                    name: clockingInUser,
+                    hour: h,
+                    minute: m,
+                    date: n + " " + d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
+                });
+                // clear the input field
+                clockingInUser.innerHTML = "";
+                document.getElementById("alertSuccess").style.display = "block";
+                document.getElementById("alertSuccess").innerHTML = "You have clocked in successfully at " + currentHour + ":" + currentMinute;
+                setTimeout(function(){
+                    document.getElementById("alertSuccess").style.display = "none";
+                }
+                , 2000);
+            }
+            }
+            );
+        }else{
+            // clear the input field
+            clockingInUser.innerHTML = "";
+            // if the person is not in the list of names, then display an error message
             document.getElementById("alertDanger").style.display = "block";
-            document.getElementById("alertDanger").innerHTML = "You have already clocked in";
+            document.getElementById("alertDanger").innerHTML = "This person is not in the system! Please contact the administrator!";
             setTimeout(function(){
                 document.getElementById("alertDanger").style.display = "none";
             }
             , 2000);
         }
-        else{
-            firebase.database().ref("users/clockIn" + name).set({
-                name: name,
-                hour: h,
-                minute: m,
-                date: n + " " + d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
-            });
-            document.getElementById("alertSuccess").style.display = "block";
-            document.getElementById("alertSuccess").innerHTML = "You have clocked in successfully";
-            setTimeout(function(){
-                document.getElementById("alertSuccess").style.display = "none";
-            }
-            , 2000);
-        }
-    }));
-}
-
-
-
-// create a function that will clock out the user
-function clockOutUser(event){
-    // get the current date and time
-    // do not refresh the page
-    event.preventDefault();
-    var d = new Date();
-    var h = d.getHours();
-    var m = d.getMinutes();
-    var s = d.getSeconds();
-    var prepand;
-    if(h>=12) {
-      prepand = "PM";
-      h = h - 12;
-    }
-    else {
-      prepand = "AM";
-    }
-    
-    if(m<10) {
-      m = "0" + m;
-    }
-    
-    if(s<10) {
-     s = "0" + s; 
-    }
-    
-    var weekend = new Array(7);
-    weekend[0] = "Sunday";
-    weekend[1] = "Monday";
-    weekend[2] = "Tuesday";
-    weekend[3] = "Wednday";
-    weekend[4] = "Thursday";
-    weekend[5] = "Friday";
-    weekend[6] = "Saturday";
-    var n = weekend[d.getDay()];
-    var time = (h + " " + " : " + m + " " + ": " + s);
-    // get the user's name
-    var name = document.getElementById("name").value;
-
-    // check if the user's name is empty or not 
-    if(name == ""){
-        alert("Please enter your name");
-    }
-    else{
-        // check the array of users and if the user is in the array then clock in the user otherwise alert the user that he is not in the array
-        var users = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul"];
-        if(users.includes(name)){
-            //check if the user has clocked in or not if he has clocked in then clock out the user otherwise alert the user that he has not clocked in
-            firebase.database().ref("users/clockIn" + name).once("value", function(snapshot){
-                if(snapshot.exists()){
-                    firebase.database().ref("users/clockOut" + name).set({
-                        name: name,
-                        hour: h,
-                        minute: m,
-                        date: n + " " + d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear()
-                    });
-                    document.getElementById("alertSuccess").style.display = "block";
-                    document.getElementById("alertSuccess").innerHTML = "You have clocked out successfully";
-                    setTimeout(function(){
-                        document.getElementById("alertSuccess").style.display = "none";
-                    }
-                    , 2000);
-                }
-                else{
-                    document.getElementById("alertDanger").style.display = "block";
-                    document.getElementById("alertDanger").innerHTML = "You have not clocked in yet, please clock in first";
-                    setTimeout(function(){
-                        document.getElementById("alertDanger").style.display = "none";
-                    }
-                    , 2000);
-                }
-            });
-        }
-        else{
-            document.getElementById("alertDanger").style.display = "block";
-            document.getElementById("alertDanger").innerHTML = "You are not in the list of users";
-            setTimeout(function(){
-                document.getElementById("alertDanger").style.display = "none";
-            }
-            , 2000);
-        }
-    }
-}
-
-
-// create a function that will get the user's clock in and clock out time and calculate the total time that the user has worked
-// display the total time that the user has worked inside console
-function calculateTime(event){
-// do not refresh the page
-    event.preventDefault();
-    // get the user's name
-    var name = document.getElementById("name").value;
-    // get the users clock in time
-    firebase.database().ref("users/clockIn" + name).once("value", function(snapshot){
-        // get the users clocked in hour and minute
-        var clockInHour = snapshot.val().hour;
-        var clockInMinute = snapshot.val().minute;
-        // get the users clock out time
-        firebase.database().ref("users/clockOut" + name).once("value", function(snapshot){
-            // get the users clocked out hour and minute
-            var clockOutHour = snapshot.val().hour;
-            var clockOutMinute = snapshot.val().minute;
-            // calculate the total time that the user has worked
-            var totalHour = clockOutHour - clockInHour;
-            var totalMinute = clockOutMinute - clockInMinute;
-
-            // add the total time that the user has worked to the current users total time
-            firebase.database().ref("users/totalTime" + name).once("value", function(snapshot){
-                if(snapshot.exists()){
-                    var totalTimeHour = snapshot.val().totalHour;
-                    var totalTimeMinute = snapshot.val().totalMinute;
-                    var newTotalHour = totalTimeHour + totalHour;
-                    var newTotalMinute = totalTimeMinute + totalMinute;
-                    //if minutes is 60 than thats one hour so add one hour and set minutes to 0
-                    if(newTotalMinute == 60){
-                        newTotalHour = newTotalHour + 1;
-                        newTotalMinute = 0;
-                    }
-                    firebase.database().ref("users/totalTime" + name).set({
-                        name: name,
-                        totalHour: newTotalHour,
-                        totalMinute: newTotalMinute
-                    });
-                }
-                else{
-                    firebase.database().ref("users/totalTime" + name).set({
-                        name: name,
-                        totalHour: totalHour,
-                        totalMinute: totalMinute
-                    });
-                }
-                // delete the clock in and clock out time of the user
-                firebase.database().ref("users/clockIn" + name).remove();
-                firebase.database().ref("users/clockOut" + name).remove();
-            });
-        });
     });
 }

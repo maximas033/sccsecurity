@@ -1,7 +1,7 @@
 // from the real-time database refrence users
 // then refrence users/totalTime" + name
 function getTotalTime(){
-    var name = ["David", "Maxim", "Vadim", "Vitaliy", "Dan", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul"];
+    var name = ["David", "Maxim", "Vadim", "Vitaliy", "Dan", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor", "Paul", "Test"];
     for(var i = 0; i < name.length; i++){
         firebase.database().ref("users/totalTime" + name[i]).on("value", function(snapshot){
             // display the total time that the user has worked inside console
