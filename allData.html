@@ -41,6 +41,7 @@
     </section>
 
 
+    <button id="screenshot-btn" onclick="TakeAScreenShot()">Take Screenshot</button>
 
 
 
@@ -49,9 +50,20 @@
     <!-- JAVASCRIPT -->
     <script src="javascript.js"></script>
     <script src="getTheUsersTotalData.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <!-- <script src="displayD.js"></script> -->
 
+    <!-- write a function that will download the data from gg section as a picture -->
     <script>
-
+        function TakeAScreenShot(){
+            html2canvas(document.querySelector("#gg")).then(canvas => {
+                // download canvas as png
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                a.download = 'screenshot.png';
+                a.click();
+            });
+        }
     </script>
+
 </body>
