@@ -31,7 +31,7 @@ function clockOut(event) {
                 hour: currentHour,
                 minute: currentMinute,
               });
-            nameClockedOut.innerHTML = " ";
+            document.getElementById("name").value = " ";
             // display the clock out time of the user
             document.getElementById("alertSuccess").style.display = "block";
             // color green
@@ -47,7 +47,7 @@ function clockOut(event) {
             // calculate the total time that the user has worked
             calculateTime(event);
           } else {
-            nameClockedOut.innerHTML = " ";
+            document.getElementById("name").value = " ";
             document.getElementById("alertDanger").style.display = "block";
             document.getElementById("alertDanger").innerHTML =
               "You are not clocked in yet! Please clock in first!";
@@ -55,13 +55,14 @@ function clockOut(event) {
             setTimeout(function () {
               document.getElementById("alertDanger").style.display = "none";
             }, 3000);
+
             return;
           }
         });
     }
     // if the person is not in the list of names
     else {
-      nameClockedOut.innerHTML = " ";
+      document.getElementById("name").value = " ";
       document.getElementById("alertDanger").style.display = "block";
       document.getElementById("alertDanger").innerHTML =
         "You are not in the system! Please contact the administrator!";
@@ -69,6 +70,7 @@ function clockOut(event) {
       setTimeout(function () {
         document.getElementById("alertDanger").style.display = "none";
       }, 3000);
+
       return;
     }
   });
