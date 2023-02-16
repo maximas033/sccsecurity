@@ -5,7 +5,6 @@ function clockIn(event){
     const securityPeople = ["Vadim", "Maxim", "Dan", "Vitaliy", "David", "Pasha", "Gena", "Slavic", "Roman", "Edward", "Dima", "Viktor"];
     var persons_name = document.getElementById("name").value
 
-
     var d = new Date();
     var h = d.getHours();
     var m = d.getMinutes();

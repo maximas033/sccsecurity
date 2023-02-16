@@ -1,79 +1,66 @@
-function calculateTime(event) {
+async function calculateTime(event) {
   // prevent page refresh
   event.preventDefault();
 
   // get the user's name
-  let name = document.getElementById("name").value;
+  const name = document.getElementById("name").value;
 
-  // get the users clock in time
-  firebase
-    .database()
-    .ref("users/clockIn" + name)
-    .once("value", function (snapshot) {
-      // get the users clocked in hour and minute
-      let clockInHour = snapshot.val().hour;
-      let clockInMinute = snapshot.val().minute;
+  try {
+    // get the users clock in time
+    const clockInSnapshot = await firebase
+      .database()
+      .ref(`users/clockIn${name}`)
+      .once("value");
+    const clockInHour = clockInSnapshot.val().hour;
+    const clockInMinute = clockInSnapshot.val().minute;
 
-      // get the users clock out time
-      firebase
-        .database()
-        .ref("users/clockOut" + name)
-        .once("value", function (snapshot) {
-          // get the users clocked out hour and minute
-          let clockOutHour = snapshot.val().hour;
-          let clockOutMinute = snapshot.val().minute;
+    // get the users clock out time
+    const clockOutSnapshot = await firebase
+      .database()
+      .ref(`users/clockOut${name}`)
+      .once("value");
+    const clockOutHour = clockOutSnapshot.val().hour;
+    const clockOutMinute = clockOutSnapshot.val().minute;
 
-          // calculate the total time that the user has worked
-          let totalHour = clockOutHour - clockInHour;
-          let totalMinute = clockOutMinute - clockInMinute;
+    // calculate the total time that the user has worked
+    let totalHour = clockOutHour - clockInHour;
+    let totalMinute = clockOutMinute - clockInMinute;
 
-          // Update the total time worked
+    console.log("total hours:" + totalHour);
+    console.log("total minutes:" + totalMinute);
 
-          // add the total time that the user has worked to the current users total time
-          firebase
-            .database()
-            .ref("users/totalTime" + name)
-            .once("value", function (snapshot) {
-              if (snapshot.exists()) {
-                let totalTimeHour = snapshot.val().totalHour;
-                let totalTimeMinute = snapshot.val().totalMinute;
-                let newTotalHour = totalTimeHour + totalHour;
-                let newTotalMinute = totalTimeMinute + totalMinute;
-                //if minutes is 60 than thats one hour so add one hour and set minutes to 0
-                if (newTotalMinute >= 60) {
-                  newTotalHour = newTotalHour + 1;
-                  newTotalMinute = newTotalMinute - 60;
-                }
-                firebase
-                  .database()
-                  .ref("users/totalTime" + name)
-                  .set({
-                    name: name,
-                    totalHour: newTotalHour,
-                    totalMinute: newTotalMinute,
-                  });
-              } else {
-                firebase
-                  .database()
-                  // finish updating the total time worked
+    // add the total time that the user has worked to the current users total time
+    const totalTimeSnapshot = await firebase
+      .database()
+      .ref(`users/totalTime${name}`)
+      .once("value");
+    let newTotalHour = totalHour;
+    let newTotalMinute = totalMinute;
 
-                  .ref("users/totalTime" + name)
-                  .set({
-                    name: name,
-                    totalHour: totalHour,
-                    totalMinute: totalMinute,
-                  });
-              }
-              // delete the clock in and clock out time of the user
-              firebase
-                .database()
-                .ref("users/clockIn" + name)
-                .remove();
-              firebase
-                .database()
-                .ref("users/clockOut" + name)
-                .remove();
-            });
-        });
+    if (totalTimeSnapshot.exists()) {
+      const totalTimeHour = totalTimeSnapshot.val().totalHour;
+      const totalTimeMinute = totalTimeSnapshot.val().totalMinute;
+      newTotalHour += totalTimeHour;
+      newTotalMinute += totalTimeMinute;
+
+      //if minutes is 60 than that's one hour so add one hour and set minutes to 0
+      if (newTotalMinute >= 60) {
+        newTotalHour += 1;
+        newTotalMinute -= 60;
+      }
+    }
+
+    await firebase.database().ref(`users/totalTime${name}`).set({
+      name: name,
+      totalHour: newTotalHour,
+      totalMinute: newTotalMinute,
     });
+
+    // delete the clock in and clock out time of the user
+    await firebase.database().ref(`users/clockIn${name}`).remove();
+    await firebase.database().ref(`users/clockOut${name}`).remove();
+    console.log("Remove succeeded.");
+  } catch (error) {
+    console.log("Error: " + error.message);
+  }
 }
