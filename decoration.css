@@ -53,7 +53,7 @@ form button{
 
 #alertDanger{
     display: none;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.832);
     color: white;
     font-weight: bold;
 }
