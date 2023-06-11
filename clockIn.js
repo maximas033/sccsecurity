@@ -1,80 +1,69 @@
-function clockInUser(event) {
-  // do not refresh the page
+function clockIn(event) {
   event.preventDefault();
-  //get all names from the SCCSECURITYPEOPLE list in the database
-  var SCCSECURITYPEOPLE = firebase.database().ref().child("SCCSECURITYPEOPLE");
-  // get the name of the person that is clocking in
-  let clockingInUser = document.getElementById("name").value;
-  // get the names from the list
-  SCCSECURITYPEOPLE.once("value", function (snapshot) {
-    // check if the clockingInUser is in the list of names or not
-    if (snapshot.hasChild(clockingInUser)) {
-      // check if the the peron is clocked in
-      firebase
-        .database()
-        .ref("users/clockIn" + clockingInUser)
-        .once("value", function (snapshot) {
-          // if the person is clocked in then alert the user
-          if (snapshot.exists()) {
-            // clear the input field
-            document.getElementById("name").value = "";
-            // if the person is clocked in already, then do not clock them in and display an error message
-            document.getElementById("alertDanger").style.display = "block";
-            document.getElementById("alertDanger").innerHTML =
-              "You are already clocked in!";
-            //do not show the message for 2.5 seconds
-            setTimeout(function () {
-              document.getElementById("alertDanger").style.display = "none";
-            }, 2500);
-          } else {
-            // if the person is not clocked in, then clock them in
-            // get the current time
-            let date = new Date();
-            // get the current hour
-            let hour = date.getHours();
-            // get the current minute
-            let minute = date.getMinutes();
-            // get the current second
-            let second = date.getSeconds();
-            // get the current day
-            let day = date.getDate();
-            // get the current month
-            let month = date.getMonth() + 1;
-            // get the current year
-            let year = date.getFullYear();
-            // get the current date
-            let currentDate = month + "/" + day + "/" + year;
-            // get the current time
-            let currentTime = hour + ":" + minute + ":" + second;
-            // set the clock in time in the database
-            firebase
-              .database()
-              .ref("users/clockIn" + clockingInUser)
-              .set({
-                name: clockingInUser,
-                hour: hour,
-                minute: minute,
+  let name = document.getElementById("name").value;
+  const allUsersRef = firebase.database().ref('AllUsers');
+  allUsersRef.once('value').then((snapshot) => {
+      if (snapshot.exists()) {
+          const allUsers = snapshot.val();
+          const userExists = Object.values(allUsers).some((userDict) => {
+              return userDict['name'] === name;
+          });
+
+          if (userExists) {
+              const clockInUsersRef = firebase.database().ref('ClockInUsers').child(name);
+              clockInUsersRef.once('value').then((statusSnapshot) => {
+                  const statusDict = statusSnapshot.val();
+                  if (statusDict && statusDict['status'] === 'ClockedIn') {
+                    document.getElementById("alertDanger").style.display = "block"
+                    document.getElementById("alertDanger").innerHTML = `Clock in failed, ${name} is already clocked in`
+                    document.getElementById("name").value = ""
+                    // wait 2 seconds 
+                    setTimeout(function() {
+                      document.getElementById("alertDanger").style.display = "none"
+                    }, 3000)
+                  } else {
+                      const currentTime = new Date();
+                      const currentTimeString = currentTime.toISOString().split('T')[0] + ' ' + currentTime.toTimeString().split(' ')[0];
+                      const clockInData = {
+                          'name': name,
+                          'status': 'ClockedIn',
+                          'time': currentTimeString
+                      };
+                      clockInUsersRef.set(clockInData);
+                      document.getElementById("alertSuccess").style.display = "block"
+                      document.getElementById("alertSuccess").innerText = `${name} Clocked in Successfully`
+                      document.getElementById("name").value = ""
+                      // wait 2 seconds 
+                      setTimeout(function() {
+                        document.getElementById("alertSuccess").style.display = "none"
+                      }, 3000)
+                  }
               });
-            // clear the input field
-            document.getElementById("name").value = "";
-            document.getElementById("alertSuccess").style.display = "block";
-            document.getElementById("alertSuccess").innerHTML =
-              "You have clocked in successfully at " + hour + ":" + minute;
-            //do not show the message for 2.5 seconds
-            setTimeout(function () {
-              document.getElementById("alertSuccess").style.display = "none";
-            }, 2500);
+          } else {
+            document.getElementById("alertDanger").style.display = "block"
+            document.getElementById("alertDanger").innerHTML = `Clock in failed, ${name} is not in the list`
+            document.getElementById("name").value = ""
+            // wait 2 seconds 
+            setTimeout(function() {
+              document.getElementById("alertDanger").style.display = "none"
+            }, 3000)
           }
-        });
-    } else {
-      // if the person is not in the list of names, then display an error message
-      document.getElementById("alertDanger").style.display = "block";
-      document.getElementById("alertDanger").innerHTML =
-        "You are not in the system! Please contact the administrator!";
-      //do not show the message for 2.5 seconds
-      setTimeout(function () {
-        document.getElementById("alertDanger").style.display = "none";
-      }, 2500);
-    }
+      } else {
+        document.getElementById("alertDanger").style.display = "block"
+        document.getElementById("alertDanger").innerHTML = 'Database Error', 'No users found'
+        document.getElementById("name").value = ""
+        // wait 2 seconds 
+        setTimeout(function() {
+          document.getElementById("alertDanger").style.display = "none"
+        }, 3000)
+      }
+  }).catch((error) => {
+    document.getElementById("alertDanger").style.display = "block"
+    document.getElementById("alertDanger").innerHTML = ('Database Error', error.message)
+    document.getElementById("name").value = ""
+    // wait 2 seconds 
+    setTimeout(function() {
+      document.getElementById("alertDanger").style.display = "none"
+    }, 3000)
   });
 }

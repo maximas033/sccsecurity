@@ -1,94 +1,64 @@
-// from the real-time database refrence users
-// then refrence users/totalTime" + name
-function getTotalTime(){
-    // get the names of the people from the firebase database under SCCSECURITYPEOPLE
-    var SCCSECURITYPEOPLE = firebase.database().ref().child("SCCSECURITYPEOPLE");
-    // get the total time of time worked for each person
-    SCCSECURITYPEOPLE.on("value", function(snapshot) {
-        snapshot.forEach(function(data) {
-            var name = data.key;
-            var totalTime = firebase.database().ref().child("users/totalTime" + name);
-            totalTime.on("value", function(snapshot) {
-                var total = snapshot.val();
-               // create a table that will display the name of the user and the total hours and minutes that the user has worked
-//             // appened the table to the div with the id of workedHoursW
-            var table = document.createElement("table");
-            table.setAttribute("class", "table table-striped");
-            var thead = document.createElement("thead");
-            var tr = document.createElement("tr");
-            var th = document.createElement("th");
+function fetchData(completion) {
+    var databaseRef = firebase.database().ref().child("TotalHours");
+    databaseRef.once("value", function(snapshot) {
+        var personDataArray = [];
 
-            th.innerHTML = "Name";
-            tr.appendChild(th);
-            th = document.createElement("th");
-            th.innerHTML = "Hours";
-            tr.appendChild(th);
-            th = document.createElement("th");
-            th.innerHTML = "Minutes";
-            tr.appendChild(th);
-            thead.appendChild(tr);
-            table.appendChild(thead);
-            var tbody = document.createElement("tbody");
-            tr = document.createElement("tr");
-            var td = document.createElement("td");
-            td.innerHTML = snapshot.val().name;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.innerHTML = snapshot.val().totalHour;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.innerHTML = snapshot.val().totalMinute;
-            // remove the line before the minute
-            td.innerHTML = td.innerHTML.replace("-", "");
-            tr.appendChild(td);
-            tbody.appendChild(tr);
-            table.appendChild(tbody);
-            document.getElementById("workedHoursW").appendChild(table);
-            });
-        });
+        var dataDict = snapshot.val();
+        for (var name in dataDict) {
+            if (dataDict.hasOwnProperty(name)) {
+                var data = dataDict[name];
+                var hoursWorked = data["hours"] || 0;
+                var minutesWorked = Math.floor(data["minutes"]) || 0; // Here we round down the minutes to a full number
+                var personData = { name: name, hoursWorked: hoursWorked, minutesWorked: minutesWorked };
+                personDataArray.push(personData);
+            }
+        }
+
+        completion(personDataArray);
     });
 }
 
 
-//     firebase.database().ref("users/totalTime" + SCCSECURITYPEOPLE).once("value", function(snapshot){
-//     // name of the user
-//     for(var i = 0; i < SCCSECURITYPEOPLE.length; i++){
-//         firebase.database().ref("users/totalTime" + SCCSECURITYPEOPLE[i]).once("value", function(snapshot){
-//             // create a table that will display the name of the user and the total hours and minutes that the user has worked
-//             // appened the table to the div with the id of workedHoursW
-//             var table = document.createElement("table");
-//             table.setAttribute("class", "table table-striped");
-//             var thead = document.createElement("thead");
-//             var tr = document.createElement("tr");
-//             var th = document.createElement("th");
+fetchData(function(personDataArray) {
+    var workedHoursW = document.getElementById("workedHoursW");
+    var table = document.createElement("table");
 
-//             th.innerHTML = "Name";
-//             tr.appendChild(th);
-//             th = document.createElement("th");
-//             th.innerHTML = "Hours";
-//             tr.appendChild(th);
-//             th = document.createElement("th");
-//             th.innerHTML = "Minutes";
-//             tr.appendChild(th);
-//             thead.appendChild(tr);
-//             table.appendChild(thead);
-//             var tbody = document.createElement("tbody");
-//             tr = document.createElement("tr");
-//             var td = document.createElement("td");
-//             td.innerHTML = snapshot.val().name;
-//             tr.appendChild(td);
-//             td = document.createElement("td");
-//             td.innerHTML = snapshot.val().totalHour;
-//             tr.appendChild(td);
-//             td = document.createElement("td");
-//             td.innerHTML = snapshot.val().totalMinute;
-//             // remove the line before the minute
-//             td.innerHTML = td.innerHTML.replace("-", "");
-//             tr.appendChild(td);
-//             tbody.appendChild(tr);
-//             table.appendChild(tbody);
-//             document.getElementById("workedHoursW").appendChild(table);
-//         });
-//     }
-//     });
-// }
+    var tableHead = document.createElement("thead");
+    var tableHeadRow = document.createElement("tr");
+
+    var nameHeader = document.createElement("th");
+    nameHeader.textContent = "Name";
+    var hoursWorkedHeader = document.createElement("th");
+    hoursWorkedHeader.textContent = "Hours Worked";
+    var minutesWorkedHeader = document.createElement("th");
+    minutesWorkedHeader.textContent = "Minutes Worked";
+
+    tableHeadRow.appendChild(nameHeader);
+    tableHeadRow.appendChild(hoursWorkedHeader);
+    tableHeadRow.appendChild(minutesWorkedHeader);
+
+    tableHead.appendChild(tableHeadRow);
+    table.appendChild(tableHead);
+
+    var tableBody = document.createElement("tbody");
+
+    personDataArray.forEach(function(personData) {
+      var row = document.createElement("tr");
+      var nameCell = document.createElement("td");
+      var hoursWorkedCell = document.createElement("td");
+      var minutesWorkedCell = document.createElement("td");
+
+      nameCell.textContent = personData.name;
+      hoursWorkedCell.textContent = personData.hoursWorked;
+      minutesWorkedCell.textContent = personData.minutesWorked;
+
+      row.appendChild(nameCell);
+      row.appendChild(hoursWorkedCell);
+      row.appendChild(minutesWorkedCell);
+
+      tableBody.appendChild(row);
+    });
+
+    table.appendChild(tableBody);
+    workedHoursW.appendChild(table);
+  });

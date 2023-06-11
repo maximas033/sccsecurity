@@ -1,11 +1,13 @@
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyCZx2woCZx4MUhOUZdSY81xV37_XI_rxew",
-    authDomain: "clockingsystem-8baa6.firebaseapp.com",
-    projectId: "clockingsystem-8baa6",
-    storageBucket: "clockingsystem-8baa6.appspot.com",
-    messagingSenderId: "515651665477",
-    appId: "1:515651665477:web:bcdd8e19f92eca70a22d2c"
+    apiKey: "AIzaSyBG8nVLhLZfBdhox4V_kxewq147u1XY8sY",
+    authDomain: "scc-security.firebaseapp.com",
+    databaseURL: "https://scc-security-default-rtdb.firebaseio.com",
+    projectId: "scc-security",
+    storageBucket: "scc-security.appspot.com",
+    messagingSenderId: "803260742431",
+    appId: "1:803260742431:web:d1d5431590e3946244ce2a",
+    measurementId: "G-8ZFFR9CFBM"
   };
   
 // Initialize Firebase
