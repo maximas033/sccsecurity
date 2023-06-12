@@ -421,6 +421,6 @@ input:checked + .slider:before {
     }
 
     #underConstruction h4{
-        margin-bottom: 6%;
+        margin-bottom: 10%;
     }
 }
