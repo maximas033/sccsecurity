@@ -403,6 +403,10 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+#underConstruction h3{
+    width: 100%;
+}
+
 #underConstruction h2{
     margin-bottom: 1%;
 }
@@ -422,5 +426,9 @@ input:checked + .slider:before {
 
     #underConstruction h4{
         margin-bottom: 10%;
+    }
+
+    #textUnderConstruction{
+        width: 100%;
     }
 }
