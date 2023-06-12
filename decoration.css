@@ -304,3 +304,30 @@ footer{
 #workedHoursW tr:hover {
     background-color: #ddd;
 }
+
+
+
+.displayAllPeople{
+    margin-top: 3%;
+}
+
+.displayAllPeople li{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#clockedInUsers{
+    width: 30%;
+    margin: 0 auto;
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width: 767px){
+    #clockedInUsers{
+        width: 90%;
+    }
+
+    #clockedInUsersInformation{
+        width: 100%;
+    }
+}

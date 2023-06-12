@@ -69,11 +69,15 @@
         id="diaplaying_Date"
         style="
           margin-top: 2%;
-          margin-bottom: 5%;
+          margin-bottom: 2%;
           font-size: 30px;
           font-weight: lighter;
         "
       ></div>
+
+      <div id="clockedInUsers" onclick="displayWhoRelocate()">
+        <h5 id="clockedInUsersInformation"></h5>
+      </div>
 
       <!-- ERROR ALERTS -->
       <div class="errorMessage">
@@ -142,5 +146,6 @@
     <script src="clockOut.js"></script>
     <!-- Link to the js file that will calculate the time a person worked and save it to the firebase -->
     <script src="calculateTotalHours.js"></script>
+    <script src="CheckPeopleClockedIn.js"></script>
   </body>
 </html>
