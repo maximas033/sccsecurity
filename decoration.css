@@ -402,3 +402,25 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+#underConstruction h2{
+    margin-bottom: 1%;
+}
+
+#underConstruction h4{
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width: 767px){
+    #underConstruction{
+        width: 100%;
+    }
+
+    #underConstruction h2{
+        margin-bottom: 5%;
+    }
+
+    #underConstruction h4{
+        margin-bottom: 6%;
+    }
+}
